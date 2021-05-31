@@ -3,10 +3,18 @@ drop table if exists team;
 drop table if exists member;
 drop table if exists record;
 drop table if exists score;
+drop table if exists user;
+
+create table user
+(
+    id           int primary key auto_increment,
+    name         varchar(20),
+    access_token varchar(100)
+);
 
 create table game
 (
-    id   int primary key,
+    id           int primary key,
     home_team_id int references team (id),
     away_team_id int references team (id)
 );
@@ -27,17 +35,17 @@ create table member
 
 create table record
 (
-    at_bat    int,
-    hit      int,
-    `out`    int,
+    at_bat int,
+    hit    int,
+    `out`  int,
     member int references member (id)
 );
 
 create table score
 (
     inning_number int,
-    score        int,
-    team       int references team (id)
+    score         int,
+    team          int references team (id)
 );
 
 

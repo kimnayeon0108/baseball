@@ -30,6 +30,6 @@ jobs:
         
       - name: upload S3
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_YEON_DEVELOPER_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_YEON_DEVELOPER_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
         run: aws s3 cp --recursive --region ap-northeast-2 BE/build/libs/*.jar s3://my-bucket-practice00

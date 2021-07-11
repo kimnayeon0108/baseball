@@ -45,6 +45,7 @@ public class GameServiceTest {
 
         gameService.saveScore(1L, 1L, scoreRequest);
 
+        verify(scoreRequest, times(1)).toScore();
         verify(teamRepository, times(1)).save(any(Team.class));
     }
 }

@@ -21,12 +21,12 @@ jobs:
           java-version: 11
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: chmod +x BE/gradlew
         
       - name: Build with Gradle
         run: |
-          ./gradlew --version
-          ./gradlew build
+          BE/./gradlew --version
+          BE/./gradlew build
         
       - name: If failure then upload test reports
         if: failure()

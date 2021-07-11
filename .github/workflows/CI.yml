@@ -1,0 +1,50 @@
+name: Java CI with Gradle
+
+
+on:
+  push:
+    branches: [ dev/BE ]
+  pull_request:
+    branches: [ dev/BE ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        
+      - name: Build with Gradle
+        run: |
+          ./gradlew --version
+          ./gradlew build
+        
+      - name: If failure then upload test reports
+        if: failure()
+        run: |
+          TARBALL_BASENAME="r6-stats-report"
+          TARBALL="$TARBALL_BASENAME.tar"
+          
+          echo 'Collecting the test report'
+          find . -path '*/build/reports/tests' -type d \
+            -exec tar rf "$TARBALL" \
+              --xform="s:./:$TARBALL_BASENAME/:" \
+              --xform='s:/build/reports/tests::' \
+              {} ';'
+              
+          echo 'Compressing the test reports .. '
+          gzip "$TARBALL"
+          
+          echo 'Uploading the test reports .. '
+          curl -F "file=@$TARBALL.gz" 'https://file.io/'
+          echo
+          echo 'Download the test reports from the URL above.'

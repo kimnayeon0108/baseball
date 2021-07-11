@@ -97,11 +97,11 @@ public class GameService {
         teamRepository.saveAll(teams);
     }
 
-    private Game findGameById(Long id) {
+    public Game findGameById(Long id) {
         return gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
     }
 
-    private Team findTeamById(Long id) {
+    public Team findTeamById(Long id) {
         return teamRepository.findById(id).orElseThrow(TeamNotFoundException::new);
     }
 

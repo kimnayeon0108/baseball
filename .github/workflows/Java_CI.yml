@@ -27,6 +27,7 @@ jobs:
         run: |
           BE/./gradlew --version
           BE/./gradlew build
+          where is *.jar
         
       - name: upload S3
         env:

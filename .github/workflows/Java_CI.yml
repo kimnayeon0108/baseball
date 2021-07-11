@@ -28,8 +28,15 @@ jobs:
           BE/./gradlew --version
           BE/./gradlew build
         
+      - name: Make zip file
+        run: zip ./baseball.zip ./BE/build/libs/*.jar
+        
+      - name: aws credential
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ap-northeast-2
+      
       - name: upload S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-        run: aws s3 cp --recursive --region ap-northeast-2 ./BE/build/libs/demo-0.0.1-SNAPSHOT.jar s3://my-bucket-practice00
+        run: aws s3 cp --recursive --region ap-northeast-2 ./baseball.zip s3://my-bucket-practice00

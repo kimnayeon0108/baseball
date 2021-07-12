@@ -1,4 +1,4 @@
-name: Java CI 
+name: Spring boot app deploy
 
 
 on:

@@ -24,12 +24,12 @@ jobs:
         run: chmod +x BE/gradlew
         
       - name: Build with Gradle
-        run: |
-          BE/./gradlew --version
-          BE/./gradlew build
+        run: ./gradlew build
+        working-directory: ./BE
         
       - name: Make zip file
-        run: zip -qq -r ./BE/$GITHUB_SHA.zip ./BE
+        run: zip -qq -r ./$GITHUB_SHA.zip .
+        working-directory: ./BE
         
       - name: aws credential
         uses: aws-actions/configure-aws-credentials@v1
@@ -39,4 +39,5 @@ jobs:
           aws-region: ap-northeast-2
       
       - name: upload S3
-        run: aws s3 cp --recursive --region ap-northeast-2 ./BE/$GITHUB_SHA.zip s3://my-bucket-practice00
+        run: aws s3 cp --recursive --region ap-northeast-2 ./$GITHUB_SHA.zip s3://my-bucket-practice00
+        working-directory: ./BE

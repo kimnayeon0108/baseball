@@ -50,4 +50,4 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://my-bucket-practice00
         working-directory: ./BE
       - name: Code Deploy
-        run: aws deploy create-deployment --application-name springboot-baseball --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name springboot-baseball-group --s3-location bucket=my-bucket-practice00,bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip 
+        run: aws deploy create-deployment --application-name springboot-baseball --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name springboot-baseball-group --s3-location bucket=my-bucket-practice00,bundleType=zip,key=baseball/$GITHUB_SHA.zip 

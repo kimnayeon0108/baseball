@@ -47,5 +47,5 @@ jobs:
           aws-region: ap-northeast-2
       
       - name: upload S3
-        run: aws s3 cp --recursive --region ap-northeast-2 ./$GITHUB_SHA.zip s3://my-bucket-practice00
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://my-bucket-practice00
         working-directory: ./BE
